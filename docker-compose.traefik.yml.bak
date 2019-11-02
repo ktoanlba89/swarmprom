@@ -22,7 +22,7 @@ configs:
 
 services:
   dockerd-exporter:
-    image: ktoanlba/caddy:latest
+    image: stefanprodan/caddy
     networks:
       - net
     environment:
@@ -39,7 +39,7 @@ services:
           memory: 64M
 
   cadvisor:
-    image: ktoanlba/cadvisor:latest
+    image: google/cadvisor
     networks:
       - net
     command: -logtostderr -docker_only
@@ -58,7 +58,7 @@ services:
           memory: 64M
 
   grafana:
-    image: ktoanlba/grafana:latest
+    image: stefanprodan/swarmprom-grafana:5.3.4
     networks:
       - default
       - net
@@ -100,7 +100,7 @@ services:
         - traefik.webservice.frontend.entryPoints=https
 
   alertmanager:
-    image: ktoanlba/alertmanager:latest
+    image: stefanprodan/swarmprom-alertmanager:v0.14.0
     networks:
       - default
       - net
@@ -139,7 +139,7 @@ services:
         - traefik.frontend.auth.basic.users=${ADMIN_USER}:${HASHED_PASSWORD}
 
   unsee:
-    image: ktoanlba/unsee:latest
+    image: cloudflare/unsee:v0.8.0
     networks:
       - default
       - net
@@ -163,7 +163,7 @@ services:
         - traefik.frontend.auth.basic.users=${ADMIN_USER}:${HASHED_PASSWORD}
 
   node-exporter:
-    image: ktoanlba/node-exporter:latest
+    image: stefanprodan/swarmprom-node-exporter:v0.16.0
     networks:
       - net
     environment:
@@ -188,7 +188,7 @@ services:
           memory: 64M
 
   prometheus:
-    image: ktoanlba/prometheus:latest
+    image: stefanprodan/swarmprom-prometheus:v2.5.0
     networks:
       - default
       - net
